@@ -1,3 +1,25 @@
+// Vesrion initiale -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+function permuteString(string, prefix = "", results = []) {
+  if (!string.length) {
+    results.push(prefix);
+    return results;
+  }
+
+  for (let i = 0; i < string.length; i++) {
+    const char = string[i];
+    const remaining = string.slice(0, i) + string.slice(i + 1);
+    const newPrefix = prefix + char;
+    permuteString(remaining, newPrefix, results);
+  }
+
+  return [...new Set(results)];
+}
+
+console.log(permuteString("fcc")); // ["fcc", "cfc", "ccf"]
+
+// Version améliorée (moins gourmande en ressources car génère moins de combinaisons Set() au début et non à la fin -------------------------------------------------------------------------------------------------
+
 function permuteString(string, prefix = "", results = []) {
   // Cas de base : si la chaîne est vide, on ajoute le préfixe
   if (!string.length) {
